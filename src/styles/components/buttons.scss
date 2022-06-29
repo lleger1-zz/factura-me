@@ -1,0 +1,40 @@
+.btn {
+    border      : none;
+    color       : white;
+    cursor      : pointer;
+    // font-size: 12px;
+    padding     : 7px 10px 7px 10px;
+
+    transition: color .3s ease;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        color: darken($color: white, $amount: 10)
+    }
+
+}
+
+.btn__sidebar {
+    border          : none;
+    background-color: transparent;
+    width: 100%;
+    // position: relative;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        color: darken($color: white, $amount: 10)
+    }
+
+}
+
+
+.center {
+    width     : 100%;
+    align-items: center;
+}

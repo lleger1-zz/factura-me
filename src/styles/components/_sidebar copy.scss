@@ -1,0 +1,121 @@
+.sidebar-container {
+    width     : 300px;
+    height    : 100vh;
+    background: rgb(16, 8, 24);
+    display   : flex;
+
+    @include mobile {
+        width: 60px;
+    }
+
+    &__header {
+        display   : flex;
+        padding   : 15px 20px;
+        background: rgb(45, 30, 61);
+        gap       : 15px;
+        display   : flex;
+
+        &__logo {
+            color  : white;
+            display: flex;
+        }
+
+        &__brand {
+            color  : white;
+            display: flex;
+
+            @include mobile {
+                display: none;
+            }
+        }
+    }
+
+}
+
+
+.sidebar-container {
+    &__list {
+        color     : white;
+        margin-top: 10px;
+        display   : flex;
+
+        &__item {
+            cursor    : pointer;
+            padding   : 15px 20px;
+            display   : flex;
+            gap       : 15px;
+            color     : rgba(255, 255, 255, 0.699);
+            transition: all 0.3s ease;
+
+            &__title {
+                @include mobile {
+                    display: none;
+                }
+            }
+
+        }
+
+        &__item:hover {
+            color     : white;
+            background: rgb(45, 30, 61);
+        }
+    }
+}
+
+.sidebar-container {
+    position: relative;
+    display : flex;
+
+    &__footer {
+        transition: all 0.3s ease;
+        display   : flex;
+
+        @include mobile {
+            display: none;
+        }
+
+        cursor          : pointer;
+        position        : absolute;
+        bottom          : 0;
+        left            : 0;
+        right           : 0;
+        background-color: rgb(45, 30, 61);
+        display         : flex;
+        align-items     : center;
+        padding         : 15px 20px;
+        gap             : 15px;
+
+        &__logo {
+            width              : 40px;
+            height             : 40px;
+            border-radius      : 50%;
+            background         : blue;
+            background-size    : cover;
+            background-position: center;
+            display            : flex;
+        }
+
+        &__data {
+            &__title {
+                font-weight: 500;
+                color      : white;
+                display    : flex;
+            }
+
+            &__subtitle {
+                font-weight: 400;
+                color      : rgba(255, 255, 255, 0.644);
+                font-size  : 0.8em;
+                display    : flex;
+            }
+        }
+    }
+}
+
+//Responsive
+@mixin mobile {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+
+}
