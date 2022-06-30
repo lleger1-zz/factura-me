@@ -12,6 +12,7 @@ import { IInvoice } from "../interfaces/interfaces";
 import invoiceApi from "../apis/invoiceApi";
 
 export const InvoicePage = () => {
+  
   const componentRef = useRef<HTMLDivElement>(null);
 
   const initialValues = {
