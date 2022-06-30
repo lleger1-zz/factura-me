@@ -12,7 +12,6 @@ import { IInvoice } from "../interfaces/interfaces";
 import invoiceApi from "../apis/invoiceApi";
 
 export const InvoicePage = () => {
-  
   const componentRef = useRef<HTMLDivElement>(null);
 
   const initialValues = {
@@ -37,7 +36,24 @@ export const InvoicePage = () => {
       // navigate("/");
       handlePrint();
       localStorage.setItem("lastConcept", a.concept);
-      reset();
+      setTimeout(() => {
+        Swal.fire({
+          title: "Desea imprimir copia?",
+          showDenyButton: true,
+          // showCancelButton: true,
+          confirmButtonText: "Si",
+          denyButtonText: `No`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            handlePrint();
+            reset();
+          } else if (result.isDenied) {
+            // Swal.fire('Changes are not saved', '', 'info')
+            reset();
+          }
+        });
+      }, 1000);
     } catch (error) {
       Swal.fire(
         "Error en la autenticacion.",

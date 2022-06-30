@@ -39,7 +39,7 @@ export const LoginPage = () => {
           password: "",
         }}
         onSubmit={(values) => {
-          startLogin(values.user, values.password);
+          startLogin(values.user.toLowerCase(), values.password);
           // console.log(invoiceState);
         }}
         validationSchema={Yup.object({
