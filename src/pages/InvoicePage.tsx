@@ -1,16 +1,24 @@
 import { Form, Formik } from "formik";
 import { useRef, useContext } from "react";
+import Swal from "sweetalert2";
+import moment from "moment";
+import * as Yup from "yup";
+
 import { useReactToPrint } from "react-to-print";
 import { Print } from "../components/Print";
 import { TextBox } from "../components/TextBox";
 import { InvoiceContext } from "../context/InvoiceContext";
 import { IInvoice } from "../interfaces/interfaces";
 import invoiceApi from "../apis/invoiceApi";
-import Swal from "sweetalert2";
-import moment from "moment";
 
 export const InvoicePage = () => {
   const componentRef = useRef<HTMLDivElement>(null);
+
+  const initialValues = {
+    client: "",
+    concept: localStorage.getItem("lastConcept") || "",
+    total: "",
+  };
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -18,7 +26,7 @@ export const InvoicePage = () => {
   const { invoiceState } = useContext(InvoiceContext);
   const { user } = invoiceState;
 
-  const startInvoice = async (a: IInvoice) => {
+  const startInvoice = async (a: IInvoice, reset: () => void) => {
     try {
       // console.log(a);
       const { data } = await invoiceApi.post("/invoices", { ...a });
@@ -27,6 +35,8 @@ export const InvoicePage = () => {
       // dispatch({ type: "LOGIN", payload: data.user });
       // navigate("/");
       handlePrint();
+      localStorage.setItem("lastConcept", a.concept);
+      reset();
     } catch (error) {
       Swal.fire(
         "Error en la autenticacion.",
@@ -42,15 +52,11 @@ export const InvoicePage = () => {
       <h1>Factura-me</h1>
       <hr />
       <Formik
-        initialValues={{
-          client: "",
-          concept: "",
-          total: "",
-        }}
-        onSubmit={(values) => {
+        initialValues={initialValues}
+        onSubmit={(values, { resetForm }) => {
           const inv = {
             concept: values.concept,
-            client: values.client,
+            client: values.client || undefined,
             qty: 1,
             price: parseInt(values.total),
             taxes: 0,
@@ -58,8 +64,14 @@ export const InvoicePage = () => {
             total: parseInt(values.total),
             created: moment().toDate(),
           };
-          startInvoice(inv);
+          startInvoice(inv, resetForm);
         }}
+        validationSchema={Yup.object({
+          concept: Yup.string()
+            .max(50, "debe de ser de 50 caracteres o menos.")
+            .required("conceptop es requerido"),
+          total: Yup.number().required("Total es requerido"),
+        })}
       >
         {({ values }) => (
           <Form>

@@ -7,5 +7,6 @@ interface Props {
 }
 
 export const PublicRouter = ({ children, uid }: Props) => {
+  console.log(uid);
   return !!uid ? <Navigate to="*" /> : children;
 };

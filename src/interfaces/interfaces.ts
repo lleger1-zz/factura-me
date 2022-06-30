@@ -20,7 +20,7 @@ export interface IUser {
 export interface IInvoice {
   id?: string;
   concept: string;
-  client: string;
+  client?: string;
   qty: number;
   price: number;
   taxes: number;

@@ -5,6 +5,7 @@ import { InvoiceContext } from "../context/InvoiceContext";
 import { invoiceApi } from "../apis";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 export const LoginPage = () => {
   const { invoiceState, dispatch } = useContext(InvoiceContext);
@@ -39,8 +40,12 @@ export const LoginPage = () => {
         }}
         onSubmit={(values) => {
           startLogin(values.user, values.password);
-          console.log(invoiceState);
+          // console.log(invoiceState);
         }}
+        validationSchema={Yup.object({
+          user: Yup.string().email().required("Usuario es requerido"),
+          password: Yup.string().required("Clave es requerida"),
+        })}
       >
         {({ values }) => (
           <Form>

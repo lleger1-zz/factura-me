@@ -4,8 +4,12 @@ import { NavLink } from "react-router-dom";
 import { InvoiceContext } from "../context/InvoiceContext";
 
 export const Navbar = () => {
-  const { invoiceState } = useContext(InvoiceContext);
+  const { invoiceState, dispatch } = useContext(InvoiceContext);
   const { user } = invoiceState;
+
+  const startLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
   return (
     <>
       <div className="sidebar-container">
@@ -73,7 +77,10 @@ export const Navbar = () => {
             <div className="sidebar-container__list__item__title">Settings</div>
           </NavLink>
 
-          <button className="sidebar-container__list__item  btn__sidebar">
+          <button
+            className="sidebar-container__list__item  btn__sidebar"
+            onClick={startLogout}
+          >
             <i
               className="fa-solid fa-arrow-right-from-bracket"
               aria-hidden={true}

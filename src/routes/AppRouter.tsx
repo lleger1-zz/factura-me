@@ -27,7 +27,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path="*"
+            path="/*"
             element={
               <PrivateRouter uid={user?.name}>
                 <Navigation />
