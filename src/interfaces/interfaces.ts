@@ -33,5 +33,5 @@ export interface IInvoice {
 
 export interface InvoiceState {
   user?: IUser;
-  invoices?: [IInvoice];
+  invoices?: [];
 }

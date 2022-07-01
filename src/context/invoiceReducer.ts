@@ -3,7 +3,7 @@ import { IInvoice, InvoiceState, IUser } from "../interfaces/interfaces";
 export type InvoiceAction =
   | { type: "LOGIN"; payload: IUser }
   | { type: "LOGOUT" }
-  | { type: "TOGGLE_TODO"; payload: { id: string } };
+  | { type: "GETINVOICES"; payload: [] };
 
 export const invoiceReducer = (
   state: InvoiceState,
@@ -16,6 +16,11 @@ export const invoiceReducer = (
       };
     case "LOGOUT":
       return {};
+    case "GETINVOICES":
+      return {
+        ...state,
+        invoices: action.payload,
+      };
     default:
       return state;
   }

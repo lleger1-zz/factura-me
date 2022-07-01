@@ -72,8 +72,8 @@ export const InvoicePage = () => {
         initialValues={initialValues}
         onSubmit={(values, { resetForm }) => {
           const inv = {
-            concept: values.concept,
-            client: values.client || undefined,
+            concept: values.concept.trim(),
+            client: values.client.trim() || undefined,
             qty: 1,
             price: parseInt(values.total),
             taxes: 0,
