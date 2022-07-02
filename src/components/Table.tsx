@@ -1,13 +1,14 @@
 import React from "react";
 import moment from "moment";
+import { IInvoice } from "../interfaces/interfaces";
 
 interface Props {
-  data: [any];
+  data: IInvoice[];
 }
 export const Table = ({ data }: Props) => {
   return (
     <>
-      <table className="table table-dark">
+      <table className="table table-sm table-dark">
         <thead>
           <tr>
             <th>Cliente</th>

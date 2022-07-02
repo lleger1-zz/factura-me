@@ -1,41 +1,35 @@
-import { useContext } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useAuthStore } from "../hooks";
+import { LoginPage } from "../pages";
+
 import { Navigation } from "./Navigation";
 
-import { InvoiceContext } from "../context/InvoiceContext";
-import { PrivateRouter } from "./PrivateRouter";
-import { PublicRouter } from "./PublicRouter";
-import { LoginPage } from "../pages/LoginPage";
-
 export const AppRouter = () => {
-  const { invoiceState } = useContext(InvoiceContext);
-  const { user } = invoiceState;
+  const { status, checkAuthToken } = useAuthStore();
+  // const authStatus = 'not-authenticated'; // 'authenticated'; // 'not-authenticated';
 
-  // console.log(user);
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+
+  if (status === "checking") {
+    return <h3>Cargando...</h3>;
+  }
 
   return (
-    <BrowserRouter>
-      <div className="app-container">
-        <Routes>
-          <Route
-            path="/login"
-            element={
-              <PublicRouter uid={user?.name}>
-                <LoginPage />
-              </PublicRouter>
-            }
-          />
-
-          <Route
-            path="/*"
-            element={
-              <PrivateRouter uid={user?.name}>
-                <Navigation />
-              </PrivateRouter>
-            }
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <Routes>
+      {status === "not-authenticated" ? (
+        <>
+          <Route path="/auth/*" element={<LoginPage />} />
+          <Route path="/*" element={<Navigate to="/auth/login" />} />
+        </>
+      ) : (
+        <>
+          <Route path="/*" element={<Navigation />} />
+          <Route path="/*" element={<Navigate to="/" />} />
+        </>
+      )}
+    </Routes>
   );
 };

@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import moment from "moment";
 import * as Yup from "yup";
@@ -7,11 +7,14 @@ import * as Yup from "yup";
 import { useReactToPrint } from "react-to-print";
 import { Print } from "../components/Print";
 import { TextBox } from "../components/TextBox";
-import { InvoiceContext } from "../context/InvoiceContext";
+
 import { IInvoice } from "../interfaces/interfaces";
-import invoiceApi from "../apis/invoiceApi";
+import { useAuthStore } from "../hooks/useAuthStore";
+import { useInvoiceStore } from "../hooks/useInvoiceStore";
 
 export const InvoicePage = () => {
+  const { user } = useAuthStore();
+  const { startSavingInvoice } = useInvoiceStore();
   const componentRef = useRef<HTMLDivElement>(null);
 
   const initialValues = {
@@ -23,19 +26,12 @@ export const InvoicePage = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  const { invoiceState } = useContext(InvoiceContext);
-  const { user } = invoiceState;
 
-  const startInvoice = async (a: IInvoice, reset: () => void) => {
+  const startInvoice = async (invoice: IInvoice, reset: () => void) => {
     try {
-      // console.log(a);
-      const { data } = await invoiceApi.post("/invoices", { ...a });
-      // localStorage.setItem("token", data.token);
-      // localStorage.setItem("token-init-date", new Date().getTime().toString());
-      // dispatch({ type: "LOGIN", payload: data.user });
-      // navigate("/");
-      handlePrint();
-      localStorage.setItem("lastConcept", a.concept);
+      startSavingInvoice(invoice);
+      localStorage.setItem("lastConcept", invoice.concept);
+
       setTimeout(() => {
         Swal.fire({
           title: "Desea imprimir copia?",
@@ -55,11 +51,11 @@ export const InvoicePage = () => {
         });
       }, 1000);
     } catch (error) {
-      Swal.fire(
-        "Error en la autenticacion.",
-        "Usuario o clave incorrecta",
-        "error"
-      );
+      // Swal.fire(
+      //   "Error en la autenticacion.",
+      //   "Usuario o clave incorrecta",
+      //   "error"
+      // );
       console.log(error);
     }
   };

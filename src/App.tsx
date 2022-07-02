@@ -1,12 +1,14 @@
-import { InvoiceProvider } from "./context/InvoiceProvider";
 import { AppRouter } from "./routes/AppRouter";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <InvoiceProvider>
-        <AppRouter />
-      </InvoiceProvider>
+      <BrowserRouter>
+        <div className="app-container">
+          <AppRouter />
+        </div>
+      </BrowserRouter>
     </>
   );
 }

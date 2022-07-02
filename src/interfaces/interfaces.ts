@@ -1,4 +1,4 @@
-interface IAgent {
+interface IAgency {
   name: string;
   rnc?: string;
   address: string;
@@ -7,14 +7,14 @@ interface IAgent {
   instagram?: string;
   facebook?: string;
   twitter?: string;
-  bornDate?: number;
+  bornDate?: Date;
 }
 
 export interface IUser {
   uid: string;
   email: string;
   name: string;
-  agency?: IAgent;
+  agency?: IAgency;
 }
 
 export interface IInvoice {
@@ -31,7 +31,13 @@ export interface IInvoice {
   status?: boolean;
 }
 
-export interface InvoiceState {
+export interface UserState {
+  status: string;
   user?: IUser;
-  invoices?: [];
+  errorMessage?: string;
+}
+
+export interface InvoiceState {
+  loading: boolean;
+  invoices: IInvoice[];
 }

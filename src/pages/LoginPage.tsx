@@ -1,33 +1,19 @@
 import { Formik, Form } from "formik";
 import { TextBox } from "../components/TextBox";
-import { useContext } from "react";
-import { InvoiceContext } from "../context/InvoiceContext";
-import { invoiceApi } from "../apis";
+import { useEffect } from "react";
+
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { useAuthStore } from "../hooks/useAuthStore";
 
 export const LoginPage = () => {
-  const { invoiceState, dispatch } = useContext(InvoiceContext);
+  const { startLogin, errorMessage } = useAuthStore();
 
-  const navigate = useNavigate();
-
-  const startLogin = async (email: string, password: string) => {
-    try {
-      const { data } = await invoiceApi.post("/auth", { email, password });
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("token-init-date", new Date().getTime().toString());
-      dispatch({ type: "LOGIN", payload: data.user });
-      // navigate("/");
-    } catch (error) {
-      Swal.fire(
-        "Error en la autenticacion.",
-        "Usuario o clave incorrecta",
-        "error"
-      );
-      // console.log(error);
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire("Error en la autenticación", errorMessage, "error");
     }
-  };
+  }, [errorMessage]);
 
   return (
     <div className="invoice__form-container">

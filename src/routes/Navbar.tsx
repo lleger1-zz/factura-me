@@ -1,15 +1,10 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-import { InvoiceContext } from "../context/InvoiceContext";
+import { useAuthStore } from "../hooks/useAuthStore";
 
 export const Navbar = () => {
-  const { invoiceState, dispatch } = useContext(InvoiceContext);
-  const { user } = invoiceState;
+  const { user, startLogout } = useAuthStore();
 
-  const startLogout = () => {
-    dispatch({ type: "LOGOUT" });
-  };
   return (
     <>
       <div className="sidebar-container">

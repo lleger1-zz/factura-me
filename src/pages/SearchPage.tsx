@@ -1,32 +1,18 @@
-import { useContext, useState } from "react";
-import { InvoiceContext } from "../context/InvoiceContext";
-import invoiceApi from "../apis/invoiceApi";
+import { useEffect } from "react";
 import { Table } from "../components/Table";
+import { useInvoiceStore } from "../hooks/useInvoiceStore";
 
 export const SearchPage = () => {
-  const { invoiceState, dispatch } = useContext(InvoiceContext);
-  const [invoices, setInvoices] = useState();
+  const { invoices, startLoadingInvoices } = useInvoiceStore();
 
-  const startGetInvoice = async () => {
-    try {
-      const { data } = await invoiceApi.get("/invoices");
-      setInvoices(data.invoices);
-
-      // dispatch({ type: "GETINVOICES", data });
-      console.log(invoices);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // startGetInvoice();
+  useEffect(() => {
+    startLoadingInvoices();
+  }, []);
 
   return (
     <div className="invoice__form-container">
       <h1>SearchPage</h1>
       <hr />
-      <button className="btn btn-primary mb-3" onClick={startGetInvoice}>
-        Actualizar
-      </button>
       {!!invoices ? (
         <Table data={invoices!} />
       ) : (

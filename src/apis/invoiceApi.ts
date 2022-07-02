@@ -10,7 +10,7 @@ const invoiceApi = axios.create({
 //Todo: configurar interceptrores
 invoiceApi.interceptors.request.use((config) => {
   const token = localStorage.getItem("token") || "";
-  // console.log(token);
+
   config.headers = {
     ...config.headers,
     "x-token": token,

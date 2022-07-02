@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import App from "./App";
-import { Navigation } from "./routes/Navigation";
+import { store } from "./store";
 import "./styles/styles.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-    {/* <Navigation /> */}
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
