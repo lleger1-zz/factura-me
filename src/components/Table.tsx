@@ -8,8 +8,8 @@ interface Props {
 export const Table = ({ data }: Props) => {
   return (
     <>
-      <table className="table table-sm table-dark">
-        <thead>
+      <table className="table table-sm table-dark search_table">
+        <thead className="w-100">
           <tr>
             <th>Cliente</th>
             <th>Concepto</th>

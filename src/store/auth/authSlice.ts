@@ -30,23 +30,6 @@ export const authSlice = createSlice({
       state.errorMessage = undefined;
     },
   },
-  //   extraReducers: (builder) => {
-  //     builder.addCase(startLogin.pending, (state) => {
-  //       state.status = "checking";
-  //       state.user = undefined;
-  //       state.errorMessage = undefined;
-  //     });
-
-  //     builder.addCase(startLogin.fulfilled, (state, { payload }) => {
-  //       state.user = payload;
-  //       state.status = "authenticated";
-  //       state.errorMessage = undefined;
-  //     });
-  //     // builder.addCase(startLogin.rejected,(state, { payload }) =>{
-  //     //     if (payload) state.errorMessage = payload.message;
-  //     //     state.status = "idle";
-  //     // })
-  //   },
 });
 
 // Action creators are generated for each case reducer function

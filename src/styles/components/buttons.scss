@@ -1,40 +1,42 @@
 .btn {
-    border      : none;
-    color       : white;
-    cursor      : pointer;
-    // font-size: 12px;
-    padding     : 7px 10px 7px 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  // font-size: 12px;
+  padding: 7px 10px 7px 10px;
 
-    transition: color .3s ease;
+  transition: color 0.3s ease;
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 
-    &:hover {
-        color: darken($color: white, $amount: 10)
-    }
-
+  &:hover {
+    color: darken($color: white, $amount: 10);
+  }
 }
 
 .btn__sidebar {
-    border          : none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  // position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: darken($color: white, $amount: 10);
+  }
+  @include mobile {
     width: 100%;
-    // position: relative;
-
-    &:focus {
-        outline: none;
-    }
-
-    &:hover {
-        color: darken($color: white, $amount: 10)
-    }
-
+    border: 50px;
+    border-color: red;
+  }
 }
 
-
 .center {
-    width     : 100%;
-    align-items: center;
+  width: 100%;
+  align-items: center;
 }

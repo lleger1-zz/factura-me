@@ -1,20 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { invoiceApi } from "../apis";
-import { onAddNewEvent, onDeleteEvent, onLoadEvents } from "../store";
+import { onAddNewEvent, onLoadEvents } from "../store";
 import { useAppSelector } from "./reduxHook";
-import { IInvoice } from "../interfaces/interfaces";
+import { IInvoice, createInvoiceResponse } from "../interfaces/interfaces";
 
 export const useInvoiceStore = () => {
   const dispatch = useDispatch();
-  const { loading, invoices } = useAppSelector((state) => state.invoice);
-  const { user } = useAppSelector((state) => state.auth);
+  const { invoices } = useAppSelector((state) => state.invoice);
 
   const startSavingInvoice = async (invoice: IInvoice) => {
     try {
       // Creando
-      const { data } = await invoiceApi.post("/invoices", invoice);
-      console.log(data);
+      const { data } = await invoiceApi.post<createInvoiceResponse>(
+        "/invoices",
+        invoice
+      );
       dispatch(onAddNewEvent({ ...data.invoice }));
     } catch (error: any) {
       console.log(error);

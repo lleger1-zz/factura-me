@@ -31,6 +31,7 @@ export const InvoicePage = () => {
     try {
       startSavingInvoice(invoice);
       localStorage.setItem("lastConcept", invoice.concept);
+      handlePrint();
 
       setTimeout(() => {
         Swal.fire({

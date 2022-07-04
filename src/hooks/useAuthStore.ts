@@ -1,4 +1,5 @@
 import { invoiceApi } from "../apis";
+import { authRequestResponse } from "../interfaces";
 import {
   clearErrorMessage,
   onChecking,
@@ -15,7 +16,10 @@ export const useAuthStore = () => {
   const startLogin = async (email: string, password: string) => {
     dispatch(onChecking());
     try {
-      const { data } = await invoiceApi.post("/auth", { email, password });
+      const { data } = await invoiceApi.post<authRequestResponse>("/auth", {
+        email,
+        password,
+      });
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime().toString());
       dispatch(onLogin({ ...data.user }));
@@ -33,18 +37,22 @@ export const useAuthStore = () => {
     if (!token) return dispatch(onLogout(undefined));
 
     try {
-      const { data } = await invoiceApi.get("auth/renew");
+      const { data } = await invoiceApi.get<authRequestResponse>("auth/renew");
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime().toString());
       dispatch(onLogin({ ...data.user }));
     } catch (error) {
+      const concept = localStorage.getItem("lastConcept");
       localStorage.clear();
+      localStorage.setItem("lastConcept", concept || "");
       dispatch(onLogout(undefined));
     }
   };
 
   const startLogout = () => {
+    const concept = localStorage.getItem("lastConcept");
     localStorage.clear();
+    localStorage.setItem("lastConcept", concept || "");
     dispatch(onLogout(undefined));
     dispatch(onLogoutInvoice());
   };

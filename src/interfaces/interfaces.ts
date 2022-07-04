@@ -41,3 +41,14 @@ export interface InvoiceState {
   loading: boolean;
   invoices: IInvoice[];
 }
+
+export interface createInvoiceResponse {
+  ok: boolean;
+  invoice: IInvoice;
+}
+
+export interface authRequestResponse {
+  ok: boolean;
+  token: string;
+  user: IUser;
+}
