@@ -42,13 +42,18 @@ export interface InvoiceState {
   invoices: IInvoice[];
 }
 
-export interface createInvoiceResponse {
+export interface CreateInvoiceResponse {
   ok: boolean;
   invoice: IInvoice;
 }
 
-export interface authRequestResponse {
+export interface AuthRequestResponse {
   ok: boolean;
   token: string;
   user: IUser;
+}
+
+export interface GetAllInvoicesResponse {
+  ok: boolean;
+  invoices: IInvoice[];
 }

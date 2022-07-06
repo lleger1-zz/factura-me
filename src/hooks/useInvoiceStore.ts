@@ -1,18 +1,22 @@
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { invoiceApi } from "../apis";
-import { onAddNewEvent, onLoadEvents } from "../store";
+import { onAddNewEvent, onFinishLoading, onLoadEvents } from "../store";
 import { useAppSelector } from "./reduxHook";
-import { IInvoice, createInvoiceResponse } from "../interfaces/interfaces";
+import {
+  IInvoice,
+  CreateInvoiceResponse,
+  GetAllInvoicesResponse,
+} from "../interfaces/interfaces";
 
 export const useInvoiceStore = () => {
   const dispatch = useDispatch();
-  const { invoices } = useAppSelector((state) => state.invoice);
+  const { invoices, loading } = useAppSelector((state) => state.invoice);
 
   const startSavingInvoice = async (invoice: IInvoice) => {
     try {
       // Creando
-      const { data } = await invoiceApi.post<createInvoiceResponse>(
+      const { data } = await invoiceApi.post<CreateInvoiceResponse>(
         "/invoices",
         invoice
       );
@@ -36,9 +40,13 @@ export const useInvoiceStore = () => {
 
   const startLoadingInvoices = async () => {
     try {
-      const { data } = await invoiceApi.get("/invoices");
-      // console.log(data);
+      const { data } = await invoiceApi.get<GetAllInvoicesResponse>(
+        "/invoices"
+      );
+
       dispatch(onLoadEvents(data.invoices));
+      // dispatch(onFinishLoading);
+      // console.log(loading);
     } catch (error) {
       console.log("Error cargando eventos");
       console.log(error);
@@ -49,6 +57,7 @@ export const useInvoiceStore = () => {
     //* Propiedades
     // activeEvent,
     invoices,
+    // loading,
     // hasEventSelected: !!activeEvent,
 
     //* Métodos

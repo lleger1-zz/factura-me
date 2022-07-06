@@ -28,7 +28,7 @@ export const Navbar = () => {
             <div className="sidebar-container__list__item__img">
               <i className="fa-solid fa-receipt" aria-hidden={true}></i>
             </div>
-            <div className="sidebar-container__list__item__title">Invoice</div>
+            <div className="sidebar-container__list__item__title">Facturar</div>
           </NavLink>
 
           <NavLink
@@ -43,7 +43,7 @@ export const Navbar = () => {
                 aria-hidden={true}
               ></i>
             </div>
-            <div className="sidebar-container__list__item__title">search</div>
+            <div className="sidebar-container__list__item__title">Busqueda</div>
           </NavLink>
 
           <NavLink
@@ -80,7 +80,7 @@ export const Navbar = () => {
               className="fa-solid fa-arrow-right-from-bracket"
               aria-hidden={true}
             ></i>
-            <p className="sidebar-container__list__item__title">Logout</p>
+            <p className="sidebar-container__list__item__title">Salir</p>
           </button>
         </div>
         <div className="sidebar-container__footer">

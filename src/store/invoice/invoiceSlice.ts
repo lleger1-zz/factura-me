@@ -29,13 +29,22 @@ export const invoiceSlice = createSlice({
           state.invoices.push(invoice);
         }
       });
+      // state.loading = false;
     },
     onLogoutInvoice: (state) => {
       (state.loading = false), (state.invoices = []);
+    },
+    onFinishLoading: (state) => {
+      state.loading = false;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onAddNewEvent, onDeleteEvent, onLoadEvents, onLogoutInvoice } =
-  invoiceSlice.actions;
+export const {
+  onAddNewEvent,
+  onDeleteEvent,
+  onLoadEvents,
+  onLogoutInvoice,
+  onFinishLoading,
+} = invoiceSlice.actions;

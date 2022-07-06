@@ -1,8 +1,48 @@
 .search_table {
-  display: block;
+  // display: block;
   //   justify-content: center;
   //   border: 1px solid green;
   height: 500px !important;
-  overflow-y: auto;
-  overflow-x: auto;
+}
+
+.search_table {
+  &__list {
+    color: white;
+    margin-top: 10px;
+
+    @include mobile {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
+    &__item {
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.699);
+      padding: 15px 20px;
+      display: flex;
+      gap: 15px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+
+      @include mobile {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.headcol {
+  position: relative;
+  width: 5em;
+  right: 0;
+  top: auto;
+  border-top-width: 1px;
+  /*only relevant for first row*/
+  margin-top: -1px;
+  /*compensate for top border*/
 }

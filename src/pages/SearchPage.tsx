@@ -11,11 +11,12 @@ export const SearchPage = () => {
 
   return (
     <div className="invoice__form-container">
-      <h1>SearchPage</h1>
+      <h1>Busqueda</h1>
       <hr />
       {!!invoices ? (
         <Table data={invoices!} />
       ) : (
+        // <AgTable invoices={invoices}/>
         <h2>No hay facturas creadas</h2>
       )}
     </div>

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Navbar } from "./Navbar";
+import { Navbar } from "../components";
 import { DashboardPage, SettingPage, SearchPage, InvoicePage } from "../pages/";
 
 export const Navigation = () => {

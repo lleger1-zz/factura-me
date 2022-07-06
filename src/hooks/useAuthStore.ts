@@ -1,5 +1,5 @@
 import { invoiceApi } from "../apis";
-import { authRequestResponse } from "../interfaces";
+import { AuthRequestResponse } from "../interfaces";
 import {
   clearErrorMessage,
   onChecking,
@@ -16,7 +16,7 @@ export const useAuthStore = () => {
   const startLogin = async (email: string, password: string) => {
     dispatch(onChecking());
     try {
-      const { data } = await invoiceApi.post<authRequestResponse>("/auth", {
+      const { data } = await invoiceApi.post<AuthRequestResponse>("/auth", {
         email,
         password,
       });
@@ -37,7 +37,7 @@ export const useAuthStore = () => {
     if (!token) return dispatch(onLogout(undefined));
 
     try {
-      const { data } = await invoiceApi.get<authRequestResponse>("auth/renew");
+      const { data } = await invoiceApi.get<AuthRequestResponse>("auth/renew");
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime().toString());
       dispatch(onLogin({ ...data.user }));
